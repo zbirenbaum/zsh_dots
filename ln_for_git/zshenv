@@ -1,0 +1,23 @@
+#
+# Defines environment variables.
+#
+
+#ALIAS
+alias vimdiff='nvim -d'
+alias vim="nvim"
+alias vi="nvim"
+alias ls="exa --icons"
+alias wrecog="cd ~/development/research/summer/SealFaceRecognition/"
+
+source '/home/zach/.config/zsh/fzftab.zsh'
+
+# if [ -n "$SSH_TTY" ]; then
+#    zstyle ':prezto:module:tmux:session' name 'ssh'
+# else
+#    zstyle ':prezto:module:tmux:session' name 'local'
+# fi
+
+# Ensure that a non-login, non-interactive shell has a defined environment.
+if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprofile"
+fi
