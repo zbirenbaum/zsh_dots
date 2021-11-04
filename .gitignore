@@ -1,0 +1,9 @@
+.zprezto/
+.zprezto/*
+backup2
+.zsh_history
+.zcompdump
+.zlogin
+.zlogout
+fzftabtmux.bak
+
