@@ -11,7 +11,7 @@
 # Tip: Looking for a nice color? Here's a one-liner to print colormap.
 #
 #   for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done
-typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off  
+#typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=always  
 function p10k-on-pre-prompt() {}
 
 function p10k-on-post-prompt() {}
