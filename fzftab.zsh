@@ -23,7 +23,7 @@ function set_default_opts(){
 }
 #check_terminal_size
 set_default_opts
-trap 'set_default_opts' WINCH
+trap "set_default_opts" WINCH
 
 zstyle ':fzf-tab:*' continuous-trigger '/'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
