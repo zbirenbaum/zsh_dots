@@ -12,9 +12,28 @@
 #
 #   for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done
 #typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=always  
-function p10k-on-pre-prompt() {}
+POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=true
+#function p10k-resizer() {p10k display '1'=hide}
+#trap "p10k-resizer" WINCH
 
-function p10k-on-post-prompt() {}
+function p10k-on-pre-prompt() {
+  p10k display \
+    '1'=show \
+    '2/left_frame'=show \
+    '2/left/dir'=hide \
+    '2/left/example'=hide \
+    '2/right/time'=show \
+    '2/left/prompt_char'=show
+}
+function p10k-on-post-prompt() {
+  p10k display \
+    '1'=hide \
+    '2/left_frame'=hide \
+    '2/left/dir'=show \
+    '2/left/example'=show \
+    '2/right/time'=hide \
+    '2/left/prompt_char'=hide
+}
 # Temporarily change options.
 'builtin' 'local' '-a' 'p10k_config_opts'
 [[ ! -o 'aliases'         ]] || p10k_config_opts+=('aliases')
@@ -39,6 +58,8 @@ function p10k-on-post-prompt() {}
     vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
+    example               # example user-defined segment (see prompt_example function below)
+    dir
     prompt_char             # prompt symbol
   )
 
@@ -111,10 +132,19 @@ function p10k-on-post-prompt() {}
     # proxy                 # system-wide http/https/ftp proxy
     # battery               # internal battery
     # wifi                  # wifi speed
-    # example               # example user-defined segment (see prompt_example function below)
   )
 
-  # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
+  function prompt_example() {
+    p10k segment -f 208 -i ''
+  }
+  function instant_prompt_example() {
+    prompt_example
+  }
+
+#  typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=208
+  typeset -g POWERLEVEL9K_EXAMPLE_VISUAL_IDENTIFIER_EXPANSION='%42F綠'
+  typeset -g POWERLEVEL9K_EXAMPLE_SUFFIX=
+  typeset -g POWERLEVEL9K_EXAMPLE_SUFFIX=
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
   # When set to `moderate`, some icons will have an extra space after them. This is meant to avoid
   # icon overlap when using non-monospace fonts. When set to `none`, spaces are not added.
@@ -124,7 +154,10 @@ function p10k-on-post-prompt() {}
   # change them.
   typeset -g POWERLEVEL9K_BACKGROUND=                            # transparent background
   typeset -g POWERLEVEL9K_{LEFT,RIGHT}_{LEFT,RIGHT}_WHITESPACE=  # no surrounding whitespace
-  typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SUBSEGMENT_SEPARATOR=' '  # separate segments with a space
+  
+ # typeset -g POWERLEVEL9K_WHITESPACE_BETWEEN_RIGHT_SEGMENTS=''
+  typeset -g POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR=' '  # separate segments with a space
+  typeset -g POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=''  # separate segments with a space
   typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SEGMENT_SEPARATOR=        # no end-of-line symbol
 
   # When set to true, icons appear before content on both sides of the prompt. When set
@@ -194,7 +227,7 @@ function p10k-on-post-prompt() {}
   typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=' '
 
   ################################[ prompt_char: prompt symbol ]################################
-# more useful chars 綠⦗祿⦘聾❮
+# more useful chars 綠聾⦗祿⦘聾❮
   # Green prompt symbol if the last command succeeded.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=38
   #76
@@ -350,7 +383,7 @@ function p10k-on-post-prompt() {}
 
   #####################################[ vcs: git status ]######################################
   # Branch icon. Set this parameter to '\uF126 ' for the popular Powerline branch icon.
-  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=''
+  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=' '
 
   # Untracked files icon. It's really a question mark, your font isn't broken.
   # Change the value of this parameter to show a different icon.
@@ -1545,9 +1578,9 @@ function p10k-on-post-prompt() {}
   # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS. It displays an icon and orange text greeting the user.
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
-  function prompt_example() {
-    p10k segment -f 208 -i '⭐' -t 'hello, %n'
-  }
+  # function prompt_example() {
+  #   p10k segment -f 208 -i '⭐' -t 'hello, %n'
+  # }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
   # is to generate the prompt segment for display in instant prompt. See
