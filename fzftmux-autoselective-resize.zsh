@@ -6,30 +6,16 @@
 #     previous_columns=$COLUMNS
 # }
 function set_pop_pad(){
-  WIDTHVAR=$( echo $(( $COLUMNS * .8 )) | cut -d. -f1)
-  HEIGHTVAR=$( echo $(( $LINES * .8 )) | cut -d. -f1)
+  WIDTHVAR=$( echo $(( $COLUMNS * .7 )) | cut -d. -f1)
+  HEIGHTVAR=$( echo $(( $LINES * .4 )) | cut -d. -f1)
   zstyle ':fzf-tab:complete:*' popup-pad $WIDTHVAR $HEIGHTVAR
   zstyle ':fzf-tab:complete:*' popup-pad $WIDTHVAR $HEIGHTVAR
-  RWIDTHVAR=$( echo $(( $COLUMNS * .65 )) | cut -d. -f1)
+  RWIDTHVAR=$( echo $(( $WIDTHVAR * .75 )) | cut -d. -f1)
   zstyle ':fzf-tab:complete:*' fzf-flags --preview-window=right:"${RWIDTHVAR}":wrap
   #zstyle ':fzf-tab:*' fzf-flags --preview-window=left:20:wrap
 }
-function set_default_opts(){
-  HEIGHTVAR=$(($LINES/2))
-  zstyle ':fzf-tab:*' fzf-pad $HEIGHTVAR
-  WIDTHVAR=$(($COLUMNS/2))
-  export FZF_DEFAULT_OPTS="
-  --color=fg:#707a8c,bg:-1,hl:#3e9831,fg+:#cbccc6,bg+:#434c5e,hl+:#5fff87 \
-  --color=dark \
-  --color=info:#af87ff,prompt:#5fff87,pointer:#ff87d7,marker:#ff87d7,spinner:#ff87d7 \
-  --sort \
-  --layout=reverse \
-  --preview-window=right:$WIDTHVAR
-  --bind '?:toggle-preview' \
-  --cycle \
-  "
-}
 #check_terminal_size
+zstyle ':fzf-tab:*' fzf-flags --color bg+:'#0e1419'
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 set_pop_pad
 #set_default_opts

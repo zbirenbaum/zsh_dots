@@ -6,12 +6,14 @@
 #     previous_columns=$COLUMNS
 # }
 
+  #--color=fg:#707a8c,bg:-1,hl:#3e9831,fg+:#cbccc6,bg+:#0e1419,hl+:#5fff87 \
+  #--color=fg:#707a8c,bg:-1,hl:#3e9831,fg+:#cbccc6,bg+:#434c5e,hl+:#5fff87 \
 function set_default_opts(){
   HEIGHTVAR=$(($LINES/2))
   zstyle ':fzf-tab:*' fzf-pad $HEIGHTVAR
   WIDTHVAR=$(($COLUMNS/2))
   export FZF_DEFAULT_OPTS="
-  --color=fg:#707a8c,bg:-1,hl:#3e9831,fg+:#cbccc6,bg+:#434c5e,hl+:#5fff87 \
+  --color=fg:#707a8c,bg:-1,hl:#3e9831,fg+:#cbccc6,bg+:#0e1419,hl+:#5fff87 \
   --color=dark \
   --color=info:#af87ff,prompt:#5fff87,pointer:#ff87d7,marker:#ff87d7,spinner:#ff87d7 \
   --sort \
@@ -21,15 +23,27 @@ function set_default_opts(){
   --cycle \
   "
 }
+zstyle ':fzf-tab:*' fzf-flags --color bg+:'#0e1419'
 #check_terminal_size
 set_default_opts
 trap "set_default_opts" WINCH
 
 zstyle ':fzf-tab:*' continuous-trigger '/'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
-zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
+
+# give a preview of commandline arguments when completing `kill`
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+  #'ps --pid="$word" -o cmd --no-headers -w -w'
+  #'[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
+
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
+  'ps --pid="$word" -o cmd --no-headers -w -w'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
+
+# zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm,cmd -w -w"
+# zstyle ':fzf-tab:complete:kill:argument-rest' extra-opts --preview=$extract'ps --pid=$in[(w)1] -o cmd --no-headers -w -w' --preview-window=down:3:wrap
 #show systemd unit status
+#
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 #environment vars
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'

@@ -22,8 +22,11 @@ function p10k-on-pre-prompt() {
     '2/left_frame'=show \
     '2/left/dir'=hide \
     '2/left/example'=hide \
+    '2/left/vcs'=hide \
+    '2/left/prompt_char'=show \
     '2/right/time'=show \
-    '2/left/prompt_char'=show
+#    '2/left/time'=hide \
+#    '2/left/space'=hide \
 }
 function p10k-on-post-prompt() {
   p10k display \
@@ -31,8 +34,11 @@ function p10k-on-post-prompt() {
     '2/left_frame'=hide \
     '2/left/dir'=show \
     '2/left/example'=show \
+    '2/left/vcs'=show \
     '2/right/time'=hide \
-    '2/left/prompt_char'=hide
+    '2/left/prompt_char'=hide \
+#    '2/left/time'=show \
+#    '2/left/space'=show \
 }
 # Temporarily change options.
 'builtin' 'local' '-a' 'p10k_config_opts'
@@ -58,8 +64,11 @@ function p10k-on-post-prompt() {
     vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
+    #time                  # current time
+    #space
     example               # example user-defined segment (see prompt_example function below)
     dir
+    vcs
     prompt_char             # prompt symbol
   )
 
@@ -133,18 +142,25 @@ function p10k-on-post-prompt() {
     # battery               # internal battery
     # wifi                  # wifi speed
   )
+  
+  function prompt_space() {
+    p10k segment -f 208 -i ' '
+  }
+  function instant_prompt_space() {
+    prompt_space
+  }
 
   function prompt_example() {
-    p10k segment -f 208 -i ''
+    p10k segment -f 208 -i ' '
   }
   function instant_prompt_example() {
     prompt_example
   }
 
 #  typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=208
+  typeset -g POWERLEVEL9K_SPACE_VISUAL_IDENTIFIER_EXPANSION=' '
   typeset -g POWERLEVEL9K_EXAMPLE_VISUAL_IDENTIFIER_EXPANSION='%42F綠'
-  typeset -g POWERLEVEL9K_EXAMPLE_SUFFIX=
-  typeset -g POWERLEVEL9K_EXAMPLE_SUFFIX=
+  #typeset -g POWERLEVEL9K_EXAMPLE_SUFFIX=
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
   # When set to `moderate`, some icons will have an extra space after them. This is meant to avoid
   # icon overlap when using non-monospace fonts. When set to `none`, spaces are not added.

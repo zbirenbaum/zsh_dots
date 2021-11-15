@@ -4,6 +4,8 @@ mime=$(file -bL --mime-type "$1")
 category=${mime%%/*}
 kind=${mime##*/}
 
+
+
 if [ -d "$1" ]; then
   if [ $COLUMNS -ge 100 ]; then
     exa --git -1hla --color=always --icons "$1"
@@ -11,7 +13,19 @@ if [ -d "$1" ]; then
     exa --git -1ha --color=always --icons "$1"
   fi
 elif [ "$category" = image ]; then
-	chafa "$1"
+# if [ -t 0 ] && [ -t 1 ]; then
+#   old_settings=$(stty -g) || exit
+#   stty -icanon -echo min 0 time 3 || exit
+#   printf '\033[6n'
+#   pos=$(dd count=1 2> /dev/null)
+#   pos=${pos%R*}
+#   pos=${pos##*\[}
+#   x=${pos##*;} y=${pos%%;*}
+#   stty "$old_settings"
+# fi
+  #kitty +kitten icat --place=10x10@10x10 "$1"
+  #viu "$1" --
+	#viu "$1" --width=20
 	exiftool "$1"
 elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || \
 	[ "$kind" = vnd.ms-excel ]; then
