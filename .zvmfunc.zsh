@@ -34,6 +34,5 @@ local paste_widgets=(
     vi-put-{before,after}
 )
 
-# NB: can atm. only wrap native widgets
 x11-clip-wrap-widgets copy $copy_widgets
 x11-clip-wrap-widgets paste  $paste_widgets
