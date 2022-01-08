@@ -15,7 +15,8 @@ function set_pop_pad(){
   #zstyle ':fzf-tab:*' fzf-flags --preview-window=left:20:wrap
 }
 #check_terminal_size
-zstyle ':fzf-tab:*' fzf-flags --color bg+:'#0e1419'
+##0e1419
+zstyle ':fzf-tab:*' fzf-flags --color bg+:'#1a1b26'
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 set_pop_pad
 #set_default_opts

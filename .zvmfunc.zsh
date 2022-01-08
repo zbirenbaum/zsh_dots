@@ -10,7 +10,7 @@ function x11-clip-wrap-widgets() {
             eval "
             function _x11-clip-wrapped-$widget() {
                 zle .$widget
-                xclip -in -selection clipboard <<<\$CUTBUFFER
+								xclip -in -selection clipboard <<<\$CUTBUFFER
             }
             "
         else

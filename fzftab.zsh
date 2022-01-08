@@ -15,7 +15,7 @@ function set_default_opts(){
   zstyle ':fzf-tab:*' fzf-pad $HEIGHTVAR
   #WIDTHVAR=$(($COLUMNS/2))
   export FZF_DEFAULT_OPTS="
-  --color=fg:#707a8c,bg:-1,hl:#3e9831,fg+:#cbccc6,bg+:#0e1419,hl+:#5fff87 \
+  --color=fg:#707a8c,bg:-1,hl:#3e9831,fg+:#cbccc6,bg+:'#10171f',hl+:#5fff87 \
   --color=dark \
   --color=info:#af87ff,prompt:#5fff87,pointer:#ff87d7,marker:#ff87d7,spinner:#ff87d7 \
   --sort \
@@ -29,8 +29,8 @@ function set_default_opts(){
   #kill -INT 888 $(pgrep fzf) &
   return
 }
-
-zstyle ':fzf-tab:*' fzf-flags --color bg+:'#0e1419'
+zstyle ':fzf-tab:*' fzf-bindings 'ctrl-y:accept'
+zstyle ':fzf-tab:*' fzf-flags --color bg+:'#10171f'
 #check_terminal_size
 set_default_opts
 trap "set_default_opts" WINCH 
