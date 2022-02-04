@@ -27,8 +27,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 source "/home/zach/.config/zsh/.zvmfunc.zsh"
-export KEYTIMEOUT=20
-bindkey 'jk' vi-cmd-mode
+source "/home/zach/.config/zsh/vi_mode_cursorswitch.zsh"
 #bindkey 'kj' vi-cmd-mode
 
 #bindkey 'jk' vi-cmd-mode
@@ -44,4 +43,6 @@ bindkey 'jk' vi-cmd-mode
 # LOAD PYENV MUST BE AT BOTTOM
 eval "$(pyenv init -)"
 eval "$(/home/zach/.local/bin/pyenv-sh-virtualenvwrapper_lazy)"
+eval "$(pyenv init --path)"
 autoload -U compinit && compinit
+

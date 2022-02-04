@@ -36,6 +36,8 @@ zstyle ':prezto:*:*' color 'yes'
 # }
 
 #zstyle ':prezto:load' pmodule 'zsh-vi-mode' 
+#place tmux at top to re-enable
+#'tmux' \
 zstyle ':prezto:load' pmodule \
   'tmux' \
   'environment' \
@@ -52,21 +54,18 @@ zstyle ':prezto:load' pmodule \
   'docker' \
   'prompt' 
   
+
 if [[ "$TERM" = xterm* ]]; then
-   zstyle ':prezto:module:tmux:auto-start' local 'yes'
+    zstyle ':prezto:module:tmux:auto-start' local 'yes'
 fi
-
+#
 zstyle ':prezto:module:tmux:auto-start' remote 'yes'
-
-# seperate local and remote tmux sessions
-# 
+#
+# # seperate local and remote tmux sessions
+# #
 zstyle ':prezto:module:tmux:auto-start' separate 'yes'
-# 
 zstyle ':prezto:module:tmux:session:local' name 'local'
 zstyle ':prezto:module:tmux:session:remote' name 'ssh'
-
-
-#zstyle ':prezto:module:tmux:auto-start' seperate 'yes'
 
 
 #FZF CONFIG

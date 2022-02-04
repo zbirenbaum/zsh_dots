@@ -9,9 +9,11 @@
   #--color=fg:#707a8c,bg:-1,hl:#3e9831,fg+:#cbccc6,bg+:#0e1419,hl+:#5fff87 \
   #--color=fg:#707a8c,bg:-1,hl:#3e9831,fg+:#cbccc6,bg+:#434c5e,hl+:#5fff87 \
 function set_default_opts(){
+  #TMUX_ID_STRING=$(tmux display-message -p '#S:#W.#P')
+  WIDTHVAR=$(($COLUMNS/2))
   HEIGHTVAR=$(($LINES/2))
   zstyle ':fzf-tab:*' fzf-pad $HEIGHTVAR
-  WIDTHVAR=$(($COLUMNS/2))
+  #WIDTHVAR=$(($COLUMNS/2))
   export FZF_DEFAULT_OPTS="
   --color=fg:#707a8c,bg:-1,hl:#3e9831,fg+:#cbccc6,bg+:#0e1419,hl+:#5fff87 \
   --color=dark \
@@ -22,11 +24,16 @@ function set_default_opts(){
   --bind '?:toggle-preview' \
   --cycle \
   "
+  #source "fzftmux-autoselective-resize.zsh"
+ 
+  #kill -INT 888 $(pgrep fzf) &
+  return
 }
+
 zstyle ':fzf-tab:*' fzf-flags --color bg+:'#0e1419'
 #check_terminal_size
 set_default_opts
-trap "set_default_opts" WINCH
+trap "set_default_opts" WINCH 
 
 zstyle ':fzf-tab:*' continuous-trigger '/'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}

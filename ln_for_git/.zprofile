@@ -21,8 +21,14 @@ path=(
   $path
 )
 
-if [ "$(ps aux | grep -e ping | wc -l)" -le "1" ]; then
-  ~/.config/zsh/keepalive.sh
+#made this into a systemd script.
+# if [ "$(ps aux | grep -e ping | wc -l)" -le "1" ]; then
+#   ~/.config/zsh/keepalive.sh
+# fi
+
+if [ -n "$SSH_CONNECTION" ]; then
+  remote=$(echo $SSH_CONNECTION | awk '{ print $1 }')
+  export DISPLAY="$remote:0.0"
 fi
 
 # Reduce vimode lag
