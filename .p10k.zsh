@@ -25,6 +25,7 @@ function p10k-on-pre-prompt() {
     '2/left/vcs'=hide \
     '2/left/prompt_char'=show \
     '2/right/time'=show \
+    '1/right/battery'=show \
 #    '2/left/time'=hide \
 #    '2/left/space'=hide \
 }
@@ -37,6 +38,7 @@ function p10k-on-post-prompt() {
     '2/left/vcs'=show \
     '2/right/time'=hide \
     '2/left/prompt_char'=hide \
+    '1/right/battery'=hide \
 #    '2/left/time'=show \
 #    '2/left/space'=show \
 }
@@ -130,6 +132,7 @@ function p10k-on-post-prompt() {
     todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
     timewarrior             # timewarrior tracking status (https://timewarrior.net/)
     taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
+    battery                 # internal battery
     # =========================[ Line #2 ]=========================
     newline
     time                  # current time
@@ -139,7 +142,6 @@ function p10k-on-post-prompt() {
     # ip                    # ip address and bandwidth usage for a specified network interface
     # public_ip             # public IP address
     # proxy                 # system-wide http/https/ftp proxy
-    # battery               # internal battery
     # wifi                  # wifi speed
   )
   
@@ -601,7 +603,7 @@ function p10k-on-post-prompt() {
   # Duration format: 1d 2h 3m 4s.
   typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FORMAT='d h m s'
   # Custom icon.
-  # typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_VISUAL_IDENTIFIER_EXPANSION='⭐'
+#  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_VISUAL_IDENTIFIER_EXPANSION='⭐'
   # Custom prefix.
   # typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PREFIX='%ftook '
 
@@ -1548,6 +1550,7 @@ function p10k-on-post-prompt() {
   typeset -g POWERLEVEL9K_BATTERY_STAGES='\uf58d\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
   # Don't show the remaining time to charge/discharge.
   typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
+#  typeset -g POWERLEVEL9K_BATTERY_CHARGING_CONTENT_EXPANSION='$(cat /sys/class/power_supply/BAT0/capacity)%%'
 
   #####################################[ wifi: wifi speed ]#####################################
   # WiFi color.

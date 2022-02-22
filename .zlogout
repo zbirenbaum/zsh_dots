@@ -1,1 +1,0 @@
-/home/zach/.config/zsh/.zprezto/runcoms/zlogout
